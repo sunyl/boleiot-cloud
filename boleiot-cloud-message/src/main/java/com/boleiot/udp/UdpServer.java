@@ -1,6 +1,6 @@
 package com.boleiot.udp;
 
-import com.boleiot.handle.UdpServerHandler;
+import com.boleiot.handle.UdpInBoundHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -28,7 +28,8 @@ public class UdpServer {
             b.group(group)
                     .channel(NioDatagramChannel.class)
                     .option(ChannelOption.SO_BROADCAST, true)
-                    .handler(new UdpServerHandler());
+                    .handler(new UdpInBoundHandler());
+
 
             b.bind(udpReceivePort).sync().channel().closeFuture().await();
         } catch (InterruptedException e) {
